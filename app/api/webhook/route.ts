@@ -27,7 +27,7 @@ export async function POST(req: Request) {
     const call = await db.call.create({
       data: {
         callId: call_id,
-        data: req.body,
+        data: body,
         transcription: transcription,
         intervieweeId: interviewee.id,
       },
@@ -37,7 +37,7 @@ export async function POST(req: Request) {
 
     data = structuredData;
 
-    const answers = await db.answers.create({
+    await db.answers.create({
       data: {
         data: structuredData,
         callId: call.id,
