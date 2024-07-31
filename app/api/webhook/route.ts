@@ -50,5 +50,5 @@ export async function POST(req: Request) {
     });
   }
 
-  return new NextResponse(data, { status: 200 });
+  return new NextResponse(JSON.stringify(data), { status: 200 });
 }

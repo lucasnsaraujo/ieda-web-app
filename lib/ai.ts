@@ -2,21 +2,17 @@ import OpenAI from "openai";
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
-const STRUCTURE = {
-  name: "John Doe",
-  currentlySmokes: true,
-  smokingFrequency: "daily",
-  cigarettesPerDay: 15,
-  triedToQuitBefore: true,
-  biggestObstacleToQuit: ["craving after meals", "social situations"],
-  methodsUsedToQuit: ["nicotine patches", "nicotine gum"],
-  worriedAboutHealthEffects: true,
-  willingToJoinSupportProgram: true,
-};
+const STRUCTURE = `
+interface STRUCTURE {
+  firstCigaretteTime: 'within5Minutes' | 'from6To30Minutes' | 'from31To60Minutes' | 'moreThan60Minutes';
+  difficultyNotSmokingInProhibitedPlaces: 'Yes' | 'No';
+  mostSatisfyingCigarette: 'firstInTheMorning' | 'others';
+  cigarettesPerDay: 'lessThan10' | 'from11To20' | 'from21To30' | 'moreThan31';
+  moreFrequentSmokingInMorning: 'Yes' | 'No';
+  smokingWhenSick: 'Yes' | 'No';
+}`;
 
 const generateQuestionnaireJson = async (conversation: string) => {
-  const jsonStructure = JSON.stringify(STRUCTURE);
-
   const prompt = `
   I have below a conversation, that is a questionnaire. 
   I would like you to generate a JSON file with the questions and answers from the conversation. 
@@ -27,7 +23,7 @@ const generateQuestionnaireJson = async (conversation: string) => {
   The text answers must be in BRAZILIAN PORTUGUESE
 
   The JSON file must follow the structure below:
-  '''${jsonStructure}'''
+  '''${STRUCTURE}'''
   
   It must return only JSON, no formatting, nothing else, a pure RAW JSON.
   `;
