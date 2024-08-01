@@ -5,11 +5,11 @@ const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 const STRUCTURE = `
 interface STRUCTURE {
   firstCigaretteTime: 'within5Minutes' | 'from6To30Minutes' | 'from31To60Minutes' | 'moreThan60Minutes';
-  difficultyNotSmokingInProhibitedPlaces: 'Yes' | 'No';
+  difficultyNotSmokingInProhibitedPlaces: boolean;
   mostSatisfyingCigarette: 'firstInTheMorning' | 'others';
   cigarettesPerDay: 'lessThan10' | 'from11To20' | 'from21To30' | 'moreThan31';
-  moreFrequentSmokingInMorning: 'Yes' | 'No';
-  smokingWhenSick: 'Yes' | 'No';
+  moreFrequentSmokingInMorning: boolean;
+  smokingWhenSick: boolean;
 }`;
 
 const generateQuestionnaireJson = async (conversation: string) => {
@@ -19,8 +19,6 @@ const generateQuestionnaireJson = async (conversation: string) => {
   The response must be JSON and nothing else, or it will break the application. 
   The conversation is below:
   '''${conversation}'''
-
-  The text answers must be in BRAZILIAN PORTUGUESE
 
   The JSON file must follow the structure below:
   '''${STRUCTURE}'''
