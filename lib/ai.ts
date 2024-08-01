@@ -3,14 +3,16 @@ import OpenAI from "openai";
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 const STRUCTURE = `
-interface STRUCTURE {
-  firstCigaretteTime: 'within5Minutes' | 'from6To30Minutes' | 'from31To60Minutes' | 'moreThan60Minutes';
-  difficultyNotSmokingInProhibitedPlaces: boolean;
-  mostSatisfyingCigarette: 'firstInTheMorning' | 'others';
-  cigarettesPerDay: 'lessThan10' | 'from11To20' | 'from21To30' | 'moreThan31';
-  moreFrequentSmokingInMorning: boolean;
-  smokingWhenSick: boolean;
-}`;
+{
+  nome: string;
+  primeiroCigarro: 'nosPrimeiros5Minutos' | 'de6A30Minutos' | 'de31A60Minutos' | 'maisDe60Minutos';
+  dificuldadeNaoFumarEmLocaisProibidos: boolean;
+  cigarroMaisSatisfatorio: 'primeiroDaManha' | 'outros';
+  cigarrosPorDia: 'menosDe10' | 'de11A20' | 'de21A30' | 'maisDe31';
+  fumaMaisFrequentementePelaManha: boolean;
+  fumaMesmoDoente: boolean;
+}
+`;
 
 const generateQuestionnaireJson = async (conversation: string) => {
   const prompt = `
